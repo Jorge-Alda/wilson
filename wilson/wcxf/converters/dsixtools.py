@@ -5,7 +5,7 @@ import json
 import yaml
 from math import sqrt
 import ckmutil
-from wilson.util import smeftutil, smeft_warsaw
+from wilson.util import smeftutil
 from . import dsixtools_definitions as definitions
 import wilson
 
@@ -271,7 +271,7 @@ class SMEFTio:
         C = smeftutil.symmetrize(C)
         # fill in zeros for missing WCs
         for k, s in smeftutil.C_keys_shape.items():
-            if k not in C and k not in smeftutil.dim4_keys:
+            if k not in C and k not in smeftutil.SM_keys:
                 if s == 1:
                     C[k] = 0
                 else:
@@ -364,7 +364,7 @@ class SMEFTio:
         Unu, Mnu = ckmutil.diag.mtakfac(Mnup)
         UuL, UdL, UuR, UdR = ckmutil.phases.rephase_standard(UuL, UdL, UuR, UdR)
         Unu, UeL, UeR = ckmutil.phases.rephase_pmns_standard(Unu, UeL, UeR)
-        return smeft_warsaw.flavor_rotation(C, Uq=UdL, Uu=UuR, Ud=UdR, Ul=UeL, Ue=UeR)
+        return smeftutil.flavor_rotation(C, Uq=UdL, Uu=UuR, Ud=UdR, Ul=UeL, Ue=UeR)
 
 
 def wcxf2dsixtools(wc, stream=None):

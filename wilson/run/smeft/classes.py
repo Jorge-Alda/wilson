@@ -65,7 +65,7 @@ class SMEFT:
         C = wilson.util.smeftutil.wcxf2arrays_symmetrized(wc.dict)
         # fill in zeros for missing WCs
         for k, s in smeftutil.C_keys_shape.items():
-            if k not in C and k not in smeftutil.dim4_keys:
+            if k not in C and k not in smeftutil.SM_keys:
                 if s == 1:
                     C[k] = 0
                 else:
@@ -85,6 +85,9 @@ class SMEFT:
         lepton mass matrices are diagonal."""
         C = self._rotate_defaultbasis(C_out)
         d = wilson.util.smeftutil.arrays2wcxf_nonred(C)
+        basis = wcxf.Basis['SMEFT', 'Warsaw']
+        all_wcs = set(basis.all_wcs)  # to speed up lookup
+        d = {k: v for k, v in d.items() if k in all_wcs and v != 0}
         d = wcxf.WC.dict2values(d)
         wc = wcxf.WC('SMEFT', 'Warsaw', scale_out, d)
         return wc
@@ -147,7 +150,7 @@ class SMEFT:
         C_in_sm = smeftutil.C_array2dict(np.zeros(9999))
         # set the SM parameters to the values obtained from smpar.smeftpar
         C_SM = smpar.smeftpar(scale_sm, C_out, basis='Warsaw')
-        SM_keys = set(smeftutil.dim4_keys)  # to speed up lookup
+        SM_keys = set(smeftutil.SM_keys)  # to speed up lookup
         C_SM = {k: v for k, v in C_SM.items() if k in SM_keys}
         # set the Wilson coefficients at the EW scale to C_out
         C_in_sm.update(C_out)

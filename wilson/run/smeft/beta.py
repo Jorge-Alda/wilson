@@ -2,7 +2,7 @@
 
 import numpy as np
 from collections import OrderedDict
-from wilson.util import smeftutil
+from wilson.util.smeftutil import C_keys, C_keys_shape, C_array2dict, C_dict2array
 from functools import lru_cache
 
 
@@ -163,7 +163,7 @@ def beta(C, HIGHSCALE=1, newphys=True):
     if not newphys:
         # if there is no new physics, generate a dictionary with zero
         # Wilson coefficients (i.e. zero beta functions)
-        BetaSM = smeftutil.C_array2dict(np.zeros(5000))
+        BetaSM = C_array2dict(np.zeros(5000))
         BetaSM.update(Beta)
         return BetaSM
 

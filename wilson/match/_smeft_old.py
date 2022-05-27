@@ -8,7 +8,7 @@ from math import sqrt, pi
 from wilson import wcxf
 import wilson
 from wilson.parameters import p as default_parameters
-from wilson.util import smeftutil, wet_jms
+from wilson.util import smeftutil, wetutil
 
 # Based on arXiv:1709.04486
 
