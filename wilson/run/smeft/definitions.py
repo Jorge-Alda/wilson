@@ -10,7 +10,7 @@ def flavor_rotation(C_in, Uq, Uu, Ud, Ul, Ue, sm_parameters=True):
     C = {}
     if sm_parameters:
         # nothing to do for scalar SM parameters
-        for k in ['g', 'gp', 'gs', 'Lambda', 'm2']:
+        for k in ['g', 'gp', 'gs', 'Lambda', 'm2', 'ALPfa']:
             C[k] = C_in[k]
         C['Ge'] = Ul.conj().T @ C_in['Ge'] @ Ue
         C['Gu'] = Uq.conj().T @ C_in['Gu'] @ Uu

@@ -1813,6 +1813,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 2*GammaH)*C["llphiphi"]-3/2*(C["llphiphi"] @ Ge @ Ge.conj().T \
       + Ge.conj() @ Ge.T @ C["llphiphi"])
 
+    Beta["ALPfa"] = 0
+
     return Beta
 
 def beta_array(C, HIGHSCALE=1, *args, **kwargs):
