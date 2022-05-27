@@ -10,13 +10,15 @@ def flavor_rotation(C_in, Uq, Uu, Ud, Ul, Ue, sm_parameters=True):
     C = {}
     if sm_parameters:
         # nothing to do for scalar SM parameters
-        for k in ['g', 'gp', 'gs', 'Lambda', 'm2', 'ALPfa']:
+        for k in ['g', 'gp', 'gs', 'Lambda', 'm2']:
             C[k] = C_in[k]
         C['Ge'] = Ul.conj().T @ C_in['Ge'] @ Ue
         C['Gu'] = Uq.conj().T @ C_in['Gu'] @ Uu
         C['Gd'] = Uq.conj().T @ C_in['Gd'] @ Ud
     # nothing to do for purely bosonic operators
     for k in smeftutil.WC_keys_0f:
+        C[k] = C_in[k]
+    for k in smeftutil.ALP_keys:
         C[k] = C_in[k]
     # see 1704.03888 table 4 (but staying SU(2) invariant here)
     # LR

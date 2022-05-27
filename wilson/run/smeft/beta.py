@@ -1815,6 +1815,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
 
     Beta["ALPfa"] = 0
 
+    Beta["ALPWW"] = 2*g**2*C["ALPWW"]
+
     return Beta
 
 def beta_array(C, HIGHSCALE=1, *args, **kwargs):

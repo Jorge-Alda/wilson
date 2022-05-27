@@ -23,7 +23,7 @@ WC_keys_4f = ["ll", "qq1", "qq3", "lq1", "lq3", "ee", "uu", "dd", "eu", "ed",
               "ud1", "ud8", "le", "lu", "ld",  "qe", "qu1", "qd1", "qu8",
               "qd8", "ledq", "quqd1", "quqd8", "lequ1", "lequ3", "duql",
               "qque", "qqql", "duue"]
-ALP_keys = ["ALPfa", ]
+ALP_keys = ["ALPfa", "ALPWW"]
 
 
 C_keys = SM_keys + WC_keys_0f + WC_keys_2f + WC_keys_4f + ALP_keys
@@ -102,13 +102,14 @@ C_keys_shape = {
    'qque': (3, 3, 3, 3),
    'qqql': (3, 3, 3, 3),
    'duue': (3, 3, 3, 3),
-   'ALPfa': 1
+   'ALPfa': 1,
+   'ALPWW': 1
 }
 
 # names of Wilson coefficients with the same fermionic symmetry properties
 C_symm_keys = {}
 # 0 0F scalar object
-C_symm_keys[0] = WC_keys_0f + ['g', 'gp', 'gs', 'Lambda', 'm2', 'ALPfa']
+C_symm_keys[0] = WC_keys_0f + ['g', 'gp', 'gs', 'Lambda', 'm2'] + ALP_keys
 # 1 2F general 3x3 matrix
 C_symm_keys[1] = ["uphi", "dphi", "ephi", "eW", "eB", "uG", "uW", "uB", "dG", "dW", "dB", "phiud"] + ['Gu', 'Gd', 'Ge']
 # 2 2F Hermitian matrix
