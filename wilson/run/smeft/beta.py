@@ -167,6 +167,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
         BetaSM.update(Beta)
         return BetaSM
 
+    #
+
 
     XiB = 2/3*(C["phiBox"] + C["phiD"]) \
       + 8/3*( - np.trace(C["phil1"]) + np.trace(C["phiq1"]) \
@@ -192,7 +194,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
 
     Beta["Gtilde"] = 15*gs**2*C["Gtilde"]
 
-    Beta["W"] = 29/2*g**2*C["W"]
+    Beta["W"] = 29/2*g**2*C["W"] \
+        + 8*g*C["ALPWW"]**2/C["ALPfa"]**2
 
     Beta["Wtilde"] = 29/2*g**2*C["Wtilde"]
 
@@ -226,7 +229,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 3*np.conj(np.trace(C["uphi"] @ Gu.conj().T @ Gu @ Gu.conj().T)) \
       + 3*np.conj(np.trace(C["dphi"] @ Gd.conj().T @ Gd @ Gd.conj().T)) \
       + np.conj(np.trace(C["ephi"] @ Ge.conj().T @ Ge @ Ge.conj().T))) \
-      + 6*GammaH*C["phi"]
+      + 6*GammaH*C["phi"] \
+      + 8/3*Lambda*g**2*C["ALPWW"]**2/C["ALPfa"]**2
 
     Beta["phiBox"] = -(4*g**2 \
       + 4/3*gp**2)*C["phiBox"] \
@@ -240,7 +244,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       - np.trace(C["phil1"])) \
       + 12*Lambda*C["phiBox"] \
       - 2*Eta3 \
-      + 4*GammaH*C["phiBox"]
+      + 4*GammaH*C["phiBox"] \
+      + 2*g**2*C["ALPWW"]**2/C["ALPfa"]**2
 
     Beta["phiD"] = 20/3*gp**2*C["phiBox"] \
       + (9/2*g**2 \
@@ -291,7 +296,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 3*np.conj(np.trace(C["uW"] @ Gu.conj().T)) \
       + 3*np.conj(np.trace(C["dW"] @ Gd.conj().T)) \
       + np.conj(np.trace(C["eW"] @ Ge.conj().T))) \
-      + 2*GammaH*C["phiW"]
+        + 2*GammaH*C["phiW"] \
+      - 2*g**2*C["ALPWW"]**2/C["ALPfa"]**2
 
     #c.c.
     Beta["phiWB"] = (19/3*gp**2 \
@@ -761,7 +767,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       - 6*my_einsum("rspt,tp", C["lq3"], Gu @ Gu.conj().T) \
       + 2*GammaH*C["phil3"] \
       + Gammal @ C["phil3"] \
-      + C["phil3"] @ Gammal
+        + C["phil3"] @ Gammal \
+        + 4/3*g**2*C["ALPWW"]**2*I3/C["ALPfa"]**2
 
     #I3  #coefficient even terms not equal...
     Beta["phie"] = -1/2*XiB*gp**2*I3 \
@@ -851,7 +858,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       - 2*my_einsum("ptrs,tp", C["lq3"], Ge @ Ge.conj().T) \
       + 2*GammaH*C["phiq3"] \
       + Gammaq @ C["phiq3"] \
-      + C["phiq3"] @ Gammaq
+        + C["phiq3"] @ Gammaq \
+        + 4/3*g**2*C["ALPWW"]**2*I3/C["ALPfa"]**2
 
     #I3 #co
     Beta["phiu"] = 1/3*XiB*gp**2*I3 \
@@ -971,7 +979,9 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + my_einsum("svpr,vt", C["ll"], Gammal) \
       + 6*g**2*my_einsum("ptsr", C["ll"]) \
       + 3*(gp**2 \
-      - g**2)*my_einsum("prst", C["ll"])
+           - g**2)*my_einsum("prst", C["ll"]) \
+        + 2/3*g**2*C["ALPWW"]**2/C["ALPfa"]**2 * \
+        (2*my_einsum("pt,sr", I3, I3)-my_einsum("pr,st", I3, I3))
 
     Beta["qq1"] = 1/18*gp**2*my_einsum("st,pr", C["phiq1"], I3) \
       - 1/9*gp**2*my_einsum("wwst,pr", C["lq1"], I3) \
@@ -1090,7 +1100,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       - 2*(gs**2 \
       + 3*g**2 \
       - 1/6*gp**2)*my_einsum("prst", C["qq3"]) \
-      + 3*g**2*my_einsum("prst", C["qq1"])
+        + 3*g**2*my_einsum("prst", C["qq1"]) \
+        + 2/3*g**2*C["ALPWW"]**2*my_einsum("pr,st", I3, I3)/C["ALPfa"]**2
 
     #the terms are equal, but the order is not. No wonder if you check some differences inside
     Beta["lq1"] = -1/3*gp**2*my_einsum("st,pr", C["phiq1"], I3) \
@@ -1150,7 +1161,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + my_einsum("pv,vrst", Gammal, C["lq3"]) \
       + my_einsum("sv,prvt", Gammaq, C["lq3"]) \
       + my_einsum("pvst,vr", C["lq3"], Gammal) \
-      + my_einsum("prsv,vt", C["lq3"], Gammaq)
+      + my_einsum("prsv,vt", C["lq3"], Gammaq) \
+      + 4/3*g**2*C["ALPWW"]**2*my_einsum("pr,st", I3, I3)/C["ALPfa"]**2
 
     #order
     Beta["ee"] = -1/3*gp**2*my_einsum("st,pr", C["phie"], I3) \
