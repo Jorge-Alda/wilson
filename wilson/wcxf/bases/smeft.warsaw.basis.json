@@ -5139,6 +5139,9 @@
       },
       "ALPBB": {
         "tex": "\\frac{a}{f_a} B \\widetilde B"
+      },
+      "ALPGG": {
+        "tex": "\\frac{a}{f_a} G \\widetilde G"
       }
     }
   }

@@ -190,7 +190,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 4/3*my_einsum("stpr,sr", C["quqd8"], np.conj(Gd)))) \
       + my_einsum("srpt,sr", C["lequ1"], np.conj(Ge))
 
-    Beta["G"] = 15*gs**2*C["G"]
+    Beta["G"] = 15*gs**2*C["G"] \
+        + 8*gs*C["ALPGG"]**2/C["ALPfa"]**2
 
     Beta["Gtilde"] = 15*gs**2*C["Gtilde"]
 
@@ -990,7 +991,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 3*(gp**2 \
            - g**2)*my_einsum("prst", C["ll"]) \
         + 2/3*g**2*C["ALPWW"]**2/C["ALPfa"]**2 * \
-        (2*my_einsum("pt,sr", I3, I3)-my_einsum("pr,st", I3, I3))
+        (2*my_einsum("pt,sr", I3, I3)-my_einsum("pr,st", I3, I3)) \
+        + 2/3*gp**2*C["ALPBB"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3)
 
     Beta["qq1"] = 1/18*gp**2*my_einsum("st,pr", C["phiq1"], I3) \
       - 1/9*gp**2*my_einsum("wwst,pr", C["lq1"], I3) \
@@ -1061,7 +1063,9 @@ def beta(C, HIGHSCALE=1, newphys=True):
       - 1/6*gp**2)*my_einsum("prst", C["qq1"]) \
       + 3*gs**2*(my_einsum("ptsr", C["qq1"]) \
                  + 3*my_einsum("ptsr", C["qq3"])) \
-        + 2/27*gp**2*C["ALPBB"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3)
+        + 2/27*gp**2*C["ALPBB"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3) \
+        + 2/3*gs**2*C["ALPGG"]**2/C["ALPfa"]**2*(my_einsum("pt,sr", I3, I3)
+                                                 - 2/3*my_einsum("pr,st", I3, I3))
 
     Beta["qq3"] = 1/6*g**2*my_einsum("st,pr", C["phiq3"], I3) \
       + 1/3*g**2*my_einsum("wwst,pr", C["lq3"], I3) \
@@ -1111,7 +1115,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 3*g**2 \
       - 1/6*gp**2)*my_einsum("prst", C["qq3"]) \
         + 3*g**2*my_einsum("prst", C["qq1"]) \
-        + 2/3*g**2*C["ALPWW"]**2*my_einsum("pr,st", I3, I3)/C["ALPfa"]**2
+        + 2/3*g**2*C["ALPWW"]**2*my_einsum("pr,st", I3, I3)/C["ALPfa"]**2 \
+        + 2/3*gs**2*C["ALPGG"]**2/C["ALPfa"]**2*my_einsum("pt,sr", I3, I3)
 
     #the terms are equal, but the order is not. No wonder if you check some differences inside
     Beta["lq1"] = -1/3*gp**2*my_einsum("st,pr", C["phiq1"], I3) \
@@ -1241,7 +1246,9 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 2*(8/3*gp**2 \
       - gs**2)*my_einsum("prst", C["uu"]) \
         + 6*gs**2*my_einsum("ptsr", C["uu"]) \
-        + 32/27*gp**2*C["ALPBB"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3)
+        + 32/27*gp**2*C["ALPBB"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3) \
+        + 4/3*gs**2*C["ALPGG"]**2/C["ALPfa"]**2*(my_einsum("pt,sr", I3, I3)
+                                                 - 1/3*my_einsum("pr,st", I3, I3))
 
     #order
     Beta["dd"] = -1/9*gp**2*my_einsum("st,pr", C["phid"], I3) \
@@ -1285,7 +1292,9 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 2*(2/3*gp**2 \
       - gs**2)*my_einsum("prst", C["dd"]) \
         + 6*gs**2*my_einsum("ptsr", C["dd"]) \
-        + 8/27*gp**2*C["ALPBB"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3)
+        + 8/27*gp**2*C["ALPBB"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3) \
+        + 4/3*gs**2*C["ALPGG"]**2/C["ALPfa"]**2*(my_einsum("pt,sr", I3, I3)
+                                                 - 1/3*my_einsum("pr,st", I3, I3))
 
     Beta["eu"] = -2/3*gp**2*(my_einsum("st,pr", C["phiu"], I3) \
       + 2*(my_einsum("wwst,pr", C["qu1"], I3) \
@@ -1399,7 +1408,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + my_einsum("pv,vrst", Gammau, C["ud8"]) \
       + my_einsum("sv,prvt", Gammad, C["ud8"]) \
       + my_einsum("pvst,vr", C["ud8"], Gammau) \
-      + my_einsum("prsv,vt", C["ud8"], Gammad)
+      + my_einsum("prsv,vt", C["ud8"], Gammad) \
+      + 16/3*gs**2*C["ALPGG"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3)
 
     Beta["le"] = -1/3*gp**2*my_einsum("st,pr", C["phie"], I3) \
       - 2/3*gp**2*my_einsum("pr,st", C["phil1"], I3) \
@@ -1637,7 +1647,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + my_einsum("pv,vrst", Gammaq, C["qu8"]) \
       + my_einsum("sv,prvt", Gammau, C["qu8"]) \
       + my_einsum("pvst,vr", C["qu8"], Gammaq) \
-      + my_einsum("prsv,vt", C["qu8"], Gammau)
+      + my_einsum("prsv,vt", C["qu8"], Gammau) \
+      + 16/3*gs**2*C["ALPGG"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3)
 
     Beta["qd8"] = 8/3*gs**2*(my_einsum("pwwr,st", C["qq1"], I3) \
       + 3*my_einsum("pwwr,st", C["qq3"], I3)) \
@@ -1668,7 +1679,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + my_einsum("pv,vrst", Gammaq, C["qd8"]) \
       + my_einsum("sv,prvt", Gammad, C["qd8"]) \
       + my_einsum("pvst,vr", C["qd8"], Gammaq) \
-      + my_einsum("prsv,vt", C["qd8"], Gammad)
+      + my_einsum("prsv,vt", C["qd8"], Gammad) \
+      + 16/3*gs**2*C["ALPGG"]**2/C["ALPfa"]**2*my_einsum("pr,st", I3, I3)
 
     Beta["ledq"] = -(8/3*gp**2 \
       + 8*gs**2)*my_einsum("prst", C["ledq"]) \
@@ -1853,6 +1865,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
     Beta["ALPWW"] = -2*19/6*g**2*C["ALPWW"]
 
     Beta["ALPBB"] = -2*(-41/6)*gp**2*C["ALPBB"]
+
+    Beta["ALPGG"] = -2*7*gs*C["ALPGG"]
 
     return Beta
 
