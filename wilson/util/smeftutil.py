@@ -23,7 +23,7 @@ WC_keys_4f = ["ll", "qq1", "qq3", "lq1", "lq3", "ee", "uu", "dd", "eu", "ed",
               "ud1", "ud8", "le", "lu", "ld",  "qe", "qu1", "qd1", "qu8",
               "qd8", "ledq", "quqd1", "quqd8", "lequ1", "lequ3", "duql",
               "qque", "qqql", "duue"]
-ALP_keys = ["ALPfa", "ALPWW"]
+ALP_keys = ["ALPfa", "ALPWW", "ALPBB"]
 
 
 C_keys = SM_keys + WC_keys_0f + WC_keys_2f + WC_keys_4f + ALP_keys
@@ -103,7 +103,8 @@ C_keys_shape = {
    'qqql': (3, 3, 3, 3),
    'duue': (3, 3, 3, 3),
    'ALPfa': 1,
-   'ALPWW': 1
+   'ALPWW': 1,
+   'ALPBB': 1
 }
 
 # names of Wilson coefficients with the same fermionic symmetry properties
