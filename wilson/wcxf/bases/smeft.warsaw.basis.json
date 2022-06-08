@@ -5142,6 +5142,33 @@
       },
       "ALPGG": {
         "tex": "\\frac{a}{f_a} G \\widetilde G"
+      },
+      "ALPYe_11": {
+        "tex": "-\\frac{a}{f_a} \\left(\\ell_1 \\varphi e_1 \\right)"
+      },
+      "ALPYe_12": {
+        "tex": "-\\frac{a}{f_a} \\left(\\ell_1 \\varphi e_2 \\right)"
+      },
+      "ALPYe_13": {
+        "tex": "-\\frac{a}{f_a} \\left(\\ell_1 \\varphi e_3 \\right)"
+      },
+      "ALPYe_21": {
+        "tex": "-\\frac{a}{f_a} \\left(\\ell_2 \\varphi e_1 \\right)"
+      },
+      "ALPYe_22": {
+        "tex": "-\\frac{a}{f_a} \\left(\\ell_2 \\varphi e_2 \\right)"
+      },
+      "ALPYe_23": {
+        "tex": "-\\frac{a}{f_a} \\left(\\ell_2 \\varphi e_3 \\right)"
+      },
+      "ALPYe_31": {
+        "tex": "-\\frac{a}{f_a} \\left(\\ell_3 \\varphi e_1 \\right)"
+      },
+      "ALPYe_32": {
+        "tex": "-\\frac{a}{f_a} \\left(\\ell_3 \\varphi e_2 \\right)"
+      },
+      "ALPYe_33": {
+        "tex": "-\\frac{a}{f_a} \\left(\\ell_3 \\varphi e_3 \\right)"
       }
     }
   }

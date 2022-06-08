@@ -22,7 +22,7 @@ def flavor_rotation(C_in, Uq, Uu, Ud, Ul, Ue, sm_parameters=True):
         C[k] = C_in[k]
     # see 1704.03888 table 4 (but staying SU(2) invariant here)
     # LR
-    for k in ['ephi', 'eW', 'eB']:
+    for k in ['ephi', 'eW', 'eB', 'ALPYe']:
         C[k] = Ul.conj().T @ C_in[k] @ Ue
     for k in ['uphi', 'uW', 'uB', 'uG']:
         C[k] = Uq.conj().T @ C_in[k] @ Uu
