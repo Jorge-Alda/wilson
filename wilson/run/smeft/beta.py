@@ -459,7 +459,11 @@ def beta(C, HIGHSCALE=1, newphys=True):
       - 2*Gd @ Gd.conj().T @ C["uphi"] \
       + 3*GammaH*C["uphi"] \
       + Gammaq @ C["uphi"] \
-      + C["uphi"] @ Gammau
+      + C["uphi"] @ Gammau \
+        - 2*my_einsum("rt,tv,vs", C["ALPYu"], Gu.conj().T, C["ALPYu"])/fa \
+        - 1/2*my_einsum("rt,tv,vs", C["ALPYu"], C["ALPYu"].conj().T, Gu)/fa \
+        - 1/2*my_einsum("rt,tv,vs", Gu, C["ALPYu"].conj().T, C["ALPYu"])/fa \
+      + 4/3*g**2*C["ALPWW"]**2*Gu/fa
 
     #i  #Eta5
     Beta["dphi"] = (10/3*g**2*C["phiBox"] \
@@ -600,7 +604,7 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + GammaH*C["eW"] \
       + Gammal @ C["eW"] \
         + C["eW"] @ Gammae \
-      - 1j*g**2*C["ALPYe"]*C["ALPWW"]/fa
+      - 1j*g*C["ALPYe"]*C["ALPWW"]/fa
 
     #i
     Beta["eB"] = 1/4*(151/3*gp**2 \
@@ -616,7 +620,7 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + GammaH*C["eB"] \
       + Gammal @ C["eB"] \
       + C["eB"] @ Gammae \
-      + 3j*gp**2*C["ALPYe"]*C["ALPBB"]/fa
+      + 3j*gp*C["ALPYe"]*C["ALPBB"]/fa
 
     #i
     Beta["uG"] = -1/36*(81*g**2 \
@@ -636,7 +640,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + C["uG"] @ Gu.conj().T @ Gu \
       + GammaH*C["uG"] \
       + Gammaq @ C["uG"] \
-      + C["uG"] @ Gammau
+        + C["uG"] @ Gammau \
+      - 4j*gs*C["ALPYu"]*C["ALPGG"]/fa
 
     #i
     Beta["uW"] = -1/36*(33*g**2 \
@@ -656,7 +661,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + C["uW"] @ Gu.conj().T @ Gu \
       + GammaH*C["uW"] \
       + Gammaq @ C["uW"] \
-      + C["uW"] @ Gammau
+      + C["uW"] @ Gammau \
+        - 1j*g*C["ALPYu"]*C["ALPWW"]/fa
 
     #i
     Beta["uB"] = -1/36*(81*g**2 \
@@ -677,7 +683,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + C["uB"] @ Gu.conj().T @ Gu \
       + GammaH*C["uB"] \
       + Gammaq @ C["uB"] \
-      + C["uB"] @ Gammau
+      + C["uB"] @ Gammau \
+        - 10j/6*gp*C["ALPYu"]*C["ALPBB"]/fa
 
     #i
     Beta["dG"] = -1/36*(81*g**2 \
@@ -848,8 +855,9 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 6*my_einsum("rspt,tp", C["qd1"], Gd.conj().T @ Gd) \
       + 2*GammaH*C["phiq1"] \
       + Gammaq @ C["phiq1"] \
-      + C["phiq1"] @ Gammaq
-    + 4/9*gp**2*C["ALPBB"]**2/fa*I3
+        + C["phiq1"] @ Gammaq \
+        + 4/9*gp**2*C["ALPBB"]**2/fa*I3 \
+      - 1/4*C["ALPYu"]@C["ALPYu"].conj().T/fa
 
     #I3 #co
     Beta["phiq3"] = 2/3*g**2*(1/4*C["phiBox"] \
@@ -880,7 +888,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 2*GammaH*C["phiq3"] \
       + Gammaq @ C["phiq3"] \
         + C["phiq3"] @ Gammaq \
-        + 4/3*g**2*C["ALPWW"]**2*I3/fa**2
+        + 4/3*g**2*C["ALPWW"]**2*I3/fa**2 \
+        + 1/4*C["ALPYu"]@C["ALPYu"].conj().T/fa
 
     #I3 #co
     Beta["phiu"] = 1/3*XiB*gp**2*I3 \
@@ -908,7 +917,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + 2*GammaH*C["phiu"] \
       + Gammau @ C["phiu"] \
       + C["phiu"] @ Gammau \
-        - 8/9*gp**2*C["ALPBB"]**2/fa**2*I3
+        - 8/9*gp**2*C["ALPBB"]**2/fa**2*I3\
+      + 1/2*C["ALPYu"].conj().T@C["ALPYu"]/fa
 
     #I3 #co
     Beta["phid"] = -1/6*XiB*gp**2*I3 \
@@ -1586,7 +1596,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + my_einsum("sv,prvt", Gammau, C["qu1"]) \
       + my_einsum("pvst,vr", C["qu1"], Gammaq) \
       + my_einsum("prsv,vt", C["qu1"], Gammau) \
-      + 16/27*gp**2*C["ALPBB"]**2/fa**2*my_einsum("pr,st", I3, I3)
+      + 16/27*gp**2*C["ALPBB"]**2/fa**2*my_einsum("pr,st", I3, I3) \
+      + 1/3*my_einsum("pt,sr", C["ALPYu"], C["ALPYu"].conj().T)/fa
 
     Beta["qd1"] = 1/9*gp**2*my_einsum("st,pr", C["phid"], I3) \
       - 2/9*gp**2*my_einsum("pr,st", C["phiq1"], I3) \
@@ -1662,7 +1673,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + my_einsum("sv,prvt", Gammau, C["qu8"]) \
       + my_einsum("pvst,vr", C["qu8"], Gammaq) \
       + my_einsum("prsv,vt", C["qu8"], Gammau) \
-      + 16/3*gs**2*C["ALPGG"]**2/fa**2*my_einsum("pr,st", I3, I3)
+      + 16/3*gs**2*C["ALPGG"]**2/fa**2*my_einsum("pr,st", I3, I3) \
+      + 2*my_einsum("pt,sr", C["ALPYu"], C["ALPYu"].conj().T)/fa
 
     Beta["qd8"] = 8/3*gs**2*(my_einsum("pwwr,st", C["qq1"], I3) \
       + 3*my_einsum("pwwr,st", C["qq3"], I3)) \
@@ -1783,7 +1795,8 @@ def beta(C, HIGHSCALE=1, newphys=True):
       + my_einsum("pv,vrst", Gammal, C["lequ1"]) \
       + my_einsum("sv,prvt", Gammaq, C["lequ1"]) \
       + my_einsum("pvst,vr", C["lequ1"], Gammae) \
-      + my_einsum("prsv,vt", C["lequ1"], Gammau)
+      + my_einsum("prsv,vt", C["lequ1"], Gammau) \
+      + 2*my_einsum("pr,st", C["ALPYe"], C["ALPYu"])/fa
 
     Beta["lequ3"] = 5/6*gp*my_einsum("pr,st", C["eB"], Gu) \
       - 3/2*g*my_einsum("st,pr", C["uW"], Ge) \
@@ -1882,16 +1895,31 @@ def beta(C, HIGHSCALE=1, newphys=True):
 
     Beta["ALPGG"] = -2*7*gs*C["ALPGG"]
 
-    ALPT = np.trace(Ge.conj().T@Ge)
-    ALPTtilde = np.trace(Ge.conj().T@C["ALPYe"])
+    ALPT = 3*np.trace(Gd.conj().T@Gd) + 3*np.trace(Gu.conj().T@Gu) \
+        + np.trace(Ge.conj().T@Ge)
+    ALPTtilde = -3*np.trace(Gu.conj().T@C["ALPYu"]) \
+        + np.trace(Ge.conj().T@C["ALPYe"])
 
     Beta["ALPYe"] = 2*my_einsum("rt,tv,vs", C["ALPYe"], Ge.conj().T, Ge) \
         + 5/2 * my_einsum("rt,tv,vs", Ge, Ge.conj().T, C["ALPYe"]) \
         + 9j*g**2*C["ALPWW"]*Ge \
         + 15j*gp**2*C["ALPBB"]*Ge \
         - 9/4*g**2*C["ALPYe"] \
+        - 15/4*gp**2*C["ALPYe"] \
         + ALPT*C["ALPYe"] \
         + 2*ALPTtilde*Ge
+
+    Beta["ALPYu"] = 2*my_einsum("rt,tv,vs", C["ALPYu"], Gu.conj().T, Gu) \
+        + 5/2*my_einsum("rt,tv,vs", Gu, Gu.conj().T, C["ALPYu"]) \
+        - 3/2*my_einsum("rt,tv,vs", Gd, Gd.conj().T, C["ALPYu"]) \
+        + 32j*gs**2*C["ALPGG"]*Gu \
+        + 9j*g**2*C["ALPWW"]*Gu \
+        + 15j*gp**2*C["ALPBB"]*Gu \
+        - 8*gs**2*C["ALPYu"] \
+        - 9/4*g**2*C["ALPYu"] \
+        - 17/12*gp**2*C["ALPYu"] \
+        + ALPT*C["ALPYu"] \
+        - 2*ALPTtilde*Gu
 
 
     return Beta

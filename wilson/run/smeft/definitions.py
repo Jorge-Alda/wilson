@@ -24,7 +24,7 @@ def flavor_rotation(C_in, Uq, Uu, Ud, Ul, Ue, sm_parameters=True):
     # LR
     for k in ['ephi', 'eW', 'eB', 'ALPYe']:
         C[k] = Ul.conj().T @ C_in[k] @ Ue
-    for k in ['uphi', 'uW', 'uB', 'uG']:
+    for k in ['uphi', 'uW', 'uB', 'uG', 'ALPYu']:
         C[k] = Uq.conj().T @ C_in[k] @ Uu
     for k in ['dphi', 'dW', 'dB', 'dG']:
         C[k] = Uq.conj().T @ C_in[k] @ Ud
