@@ -5196,6 +5196,33 @@
       },
       "ALPYu_33": {
         "tex": "-\\frac{a}{f_a} \\left(q_3 \\widetilde \\varphi u_3 \\right)"
+      },
+      "ALPYd_11": {
+        "tex": "-\\frac{a}{f_a} \\left(q_1 \\varphi d_1 \\right)"
+      },
+      "ALPYd_12": {
+        "tex": "-\\frac{a}{f_a} \\left(q_1 \\varphi d_2 \\right)"
+      },
+      "ALPYd_13": {
+        "tex": "-\\frac{a}{f_a} \\left(q_1 \\varphi d_3 \\right)"
+      },
+      "ALPYd_21": {
+        "tex": "-\\frac{a}{f_a} \\left(q_2 \\varphi d_1 \\right)"
+      },
+      "ALPYd_22": {
+        "tex": "-\\frac{a}{f_a} \\left(q_2 \\varphi d_2 \\right)"
+      },
+      "ALPYd_23": {
+        "tex": "-\\frac{a}{f_a} \\left(q_2 \\varphi d_3 \\right)"
+      },
+      "ALPYd_31": {
+        "tex": "-\\frac{a}{f_a} \\left(q_3 \\varphi d_1 \\right)"
+      },
+      "ALPYd_32": {
+        "tex": "-\\frac{a}{f_a} \\left(q_3 \\varphi d_2 \\right)"
+      },
+      "ALPYd_33": {
+        "tex": "-\\frac{a}{f_a} \\left(q_3 \\varphi d_3 \\right)"
       }
     }
   }
